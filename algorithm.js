@@ -39,7 +39,7 @@ export default function wordle(guess, rightAnswer) {
       outArray.splice(i, 1, missplaced);
     }
   }
-  console.log(out)
+  console.log(outArray)
   return outArray;
 }
 //wordle('guess', 'guess')
