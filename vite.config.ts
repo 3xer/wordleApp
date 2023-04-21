@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     port: 3080,
     proxy: {
-      "/game": "http://localhost:5080"
+      "/game/play": "http://localhost:5080/",
+      "/game": "http://localhost:5080/",
     }
   }
 })

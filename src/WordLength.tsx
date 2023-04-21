@@ -16,7 +16,7 @@ export  function WordLength() {
     const [number, setNumber] = useState()
     async function setWordLength (number){
         const getLength = await fetch('http://localhost:5080/game/'+ number,{
-            mode: "no-cors"
+            mode: "cors"
         })
         console.log(getLength)
     }
