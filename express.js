@@ -3,6 +3,8 @@ import { engine } from "express-handlebars"
 import { marked } from "marked"  
 import fetchRandomWord from "./server.js"
 import wordle from "./algorithm.js";
+
+import cors from "cors"
 //import { engine } from "express-handlebars"
 //import { marked } from "marked";
 
@@ -11,6 +13,7 @@ const arr = []
 const arr2 = []
 
 app.use(express.json())
+app.use(cors())
 
 app.engine("handlebars",
     engine({

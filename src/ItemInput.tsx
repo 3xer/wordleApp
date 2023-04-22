@@ -15,7 +15,7 @@ const ItemInput: FC<ItemInputProps> = ({ onCreateItems }) => {
    console.log(JSON.stringify(data))
     const response = await fetch ('http://localhost:5080/game/play/', {
         method: "POST",
-        mode: "no-cors",
+        mode: "cors",
         headers: {
             "Content-Type": "application/json",
         },
