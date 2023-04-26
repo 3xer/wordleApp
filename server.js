@@ -23,6 +23,7 @@ function fetchRandomWord(wordLength) {
   else if (wordLength == 6) {
     const wordIndex = Math.floor(Math.random() * words6.words.length);
     console.log('6')
+    console.log(words6.words[wordIndex])
     return words6.words[wordIndex]
   } 
   else if (wordLength == 7) {

@@ -11,15 +11,16 @@ import {
 //import { submitLength }  from './game'
 //import { wordIsAllowed } from "./game";
 
-type Item = {
-  text: string;
+type ResultGuess = {
+  letter: string,
+  result: 'missplaced' | 'correct' | 'incorrect',
 };
 
-type ItemsListProps = {
-  items: Item[]
-}
+type ResultArray = [
+  ResultGuess,
+]
 
-const ListGroup: FunctionComponent<ItemsListProps> = ({ items }) => {
+const ListGroup: FunctionComponent<ResultGuess[]> = (guessResult) => {
 
 //export function ListGroup({ items }: { items: Item[] }): JSX.Element {
   
@@ -27,8 +28,8 @@ const ListGroup: FunctionComponent<ItemsListProps> = ({ items }) => {
   return (
  
       <ul>
-        {items.map((item, index) => {
-          return <li key={index}>{item.text}</li>;
+        {guessResult.map((letter, index) => {
+          return <li key={index} className={letter.result}>{letter.letter}</li>;
         })}
       </ul>
     

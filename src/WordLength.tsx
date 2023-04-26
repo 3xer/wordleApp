@@ -15,10 +15,18 @@ export  function WordLength() {
     // TODO ---Do this later on the word submit---
     const [number, setNumber] = useState()
     async function setWordLength (number){
-        const getLength = await fetch('http://localhost:5080/game/'+ number,{
-            mode: "no-cors"
-        })
-        console.log(getLength)
+        const getLength = await fetch('/startgame/',{   
+           
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({ number }),
+    });
+        
+        //console.log(getLength)
     }
    
     return(

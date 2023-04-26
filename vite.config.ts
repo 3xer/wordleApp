@@ -7,7 +7,10 @@ export default defineConfig({
   server: {
     port: 3080,
     proxy: {
-      "/game": "http://localhost:5080"
+      "/startgame/": "http://localhost:5080",
+      "/guess/":  "http://localhost:5080",
+      "/about/":  "http://localhost:5080",
+      "/highscore":  "http://localhost:5080",
     }
   }
 })

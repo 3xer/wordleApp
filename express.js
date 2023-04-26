@@ -3,14 +3,13 @@ import { engine } from "express-handlebars"
 import { marked } from "marked"  
 import fetchRandomWord from "./server.js"
 import wordle from "./algorithm.js";
-
 import cors from "cors"
 //import { engine } from "express-handlebars"
 //import { marked } from "marked";
 
 const app = express();
 const arr = []
-const arr2 = []
+
 
 app.use(express.json())
 app.use(cors())
@@ -28,12 +27,11 @@ app.engine("handlebars",
 app.get('/')
   
  //res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080") 
-app.get('/game/:wordlength/', (req, res) => {
+app.post('/startgame/', (req, res) => {
    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080")
-    arr.splice(0, 1, fetchRandomWord(req.params.wordlength))
-    //res.json(arr)
-    console.log(arr)
-    //res.contentType('json')
+    arr.splice(0, 1, fetchRandomWord(req.body.number))
+    console.log(req.body)
+   
     res.status(200);
     //console.log(req.params.wordlength)
     
@@ -43,14 +41,16 @@ app.get('/game/:wordlength/', (req, res) => {
 
 
 
-app.post('/game/play/', (req, res) => { 
+app.post('/guess/', (req, res) => { 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080") 
     //res.dataBase.. highscore
-    //arr2.splice(1,1, req.body)
+    arr.splice(1,1, req.body.text)
+    
     
     console.log('is Body', req.body)
+    console.log(arr)
     res.status(200)
-    res.json(req.body)
+    res.json( { 'res': wordle(arr[1], arr[0]) })//wordle(req.body.data)
     
     
     
@@ -72,11 +72,11 @@ app.get('/game/play/:word', (req, res) => {
 });
 
 app.get('/highscore', (req, res) => {
-     
+  res.render('highscore')
 });
 
 app.get('/about', (req, res) => {
-
+  res.render('about')
 });
 
 console.log('listening')
