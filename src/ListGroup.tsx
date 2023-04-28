@@ -1,4 +1,72 @@
 import {
+  FunctionComponent, useState,
+} from "react";
+
+type Item = {
+  letter: string;
+  result: string;
+};
+
+
+const ListGroup: FunctionComponent<{ items: Item[] }> = ({items}) => {
+const allCorrect = items.every(element => element.result == 'correct')
+
+
+
+
+if(allCorrect && items.length>= 4){
+  const won = 'you won!!'
+  console.log('allCorrect', items, ' ', allCorrect)
+  console.log('items.length', items.length)
+}
+  return (
+    <>
+    
+      <ul>
+        {
+        
+         items.map((item, index) => {
+
+          return (
+
+           <li key={index} className={item.result}>{item.letter}</li>
+          )
+          })  
+        }
+      </ul>
+    
+      </>
+    
+    
+  );
+}
+
+export default ListGroup;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import {
   FunctionComponent,
   JSXElementConstructor,
   MouseEvent,
@@ -24,16 +92,14 @@ const ListGroup: FunctionComponent<ResultGuess[]> = (guessResult) => {
 
 //export function ListGroup({ items }: { items: Item[] }): JSX.Element {
   
-
+//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
   return (
- 
       <ul>
         {guessResult.map((letter, index) => {
           return <li key={index} className={letter.result}>{letter.letter}</li>;
         })}
       </ul>
-    
-  );
+      );
 }
 
 export default ListGroup;

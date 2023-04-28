@@ -10,7 +10,7 @@ export default defineConfig({
       "/startgame/": "http://localhost:5080",
       "/guess/":  "http://localhost:5080",
       "/about/":  "http://localhost:5080",
-      "/highscore":  "http://localhost:5080",
+      "/highscore/":  "http://localhost:5080",
     }
   }
 })

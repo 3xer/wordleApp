@@ -10,12 +10,13 @@ import { useState } from "react";
 type NumberProp = {
     number: number,
 };
-export  function WordLength() { 
+export  function WordLength({giveLength}) { 
     //number == current state setNumber== function that updates state
     // TODO ---Do this later on the word submit---
     const [number, setNumber] = useState()
+
     async function setWordLength (number){
-        const getLength = await fetch('/startgame/',{   
+        const getLength = await fetch('http://localhost:5080/startgame/',{   
            
         method: "POST",
         mode: "cors",
@@ -24,17 +25,19 @@ export  function WordLength() {
         },
 
         body: JSON.stringify({ number }),
-    });
+        });
         
-        //console.log(getLength)
+       
     }
    
     return(
         <>
-        <p>choose how many letters should be in the word</p>
+            <p>choose how many letters should be in the word</p>
             <form onSubmit={(ev) => {
                 setNumber(number)
                 setWordLength(number)
+                giveLength(number)
+                
                 ev.preventDefault();
                 }}>
                 
@@ -44,7 +47,6 @@ export  function WordLength() {
                 
             </form>
         </>
-       
     )
 }
 export default WordLength;

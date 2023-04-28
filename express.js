@@ -27,10 +27,12 @@ app.engine("handlebars",
 app.get('/')
   
  //res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080") 
+
+ //get random word
 app.post('/startgame/', (req, res) => {
    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080")
     arr.splice(0, 1, fetchRandomWord(req.body.number))
-    console.log(req.body)
+    console.log('startGame', req.body)
    
     res.status(200);
     //console.log(req.params.wordlength)
@@ -40,11 +42,11 @@ app.post('/startgame/', (req, res) => {
 //request works
 
 
-
+//send in guess
 app.post('/guess/', (req, res) => { 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080") 
     //res.dataBase.. highscore
-    arr.splice(1,1, req.body.text)
+    arr.splice(1,1, req.body.data)
     
     
     console.log('is Body', req.body)

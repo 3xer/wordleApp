@@ -27,11 +27,21 @@ body{
             
             ul{
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
-                li{
+                li{  
                     text-align: center;
                     list-style-type: none;
+                    color: black;
+                }
+                .correct{
+                    background-color: green;
+                }
+                .incorrect{
+                    background-color: red;
+                }
+                .missplaced{
+                    background-color: yellow;
                 }
             }
             
