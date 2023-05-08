@@ -11,6 +11,7 @@ export default defineConfig({
       "/guess/":  "http://localhost:5080",
       "/about/":  "http://localhost:5080",
       "/highscore/":  "http://localhost:5080",
+      "/sendScore/": "http://localhost:5080",
     }
   }
 })

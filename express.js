@@ -1,87 +1,134 @@
 import express from "express";
-import { engine } from "express-handlebars"
-import { marked } from "marked"  
-import fetchRandomWord from "./server.js"
+import { engine } from "express-handlebars";
+import { marked } from "marked";
+import fetchRandomWord from "./server.js";
 import wordle from "./algorithm.js";
-import cors from "cors"
+import { runData, getData } from "./dataBase.js";
+import cors from "cors";
 //import { engine } from "express-handlebars"
 //import { marked } from "marked";
 
 const app = express();
-const arr = []
+const arr = [];
+const guesses = [];
+const startNendTime = [0,0];
 
+app.use(express.json());
+app.use(cors());
 
-app.use(express.json())
-app.use(cors())
-
-app.engine("handlebars",
-    engine({
-      helpers: {
-        markdown: (md) => marked(md),
-      },
-    })
+app.engine(
+  "handlebars",
+  engine({
+    helpers: {
+      markdown: (md) => marked(md),
+    },
+  })
 );
-  app.set("view engine", "handlebars");
-  app.set("views", "./handlebars");
+app.set("view engine", "handlebars");
+app.set("views", "./handlebars");
 
-app.get('/')
-  
- //res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080") 
+//res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080")
 
- //get random word
-app.post('/startgame/', (req, res) => {
-   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080")
-    arr.splice(0, 1, fetchRandomWord(req.body.number))
-    console.log('startGame', req.body)
-   
-    res.status(200);
-    //console.log(req.params.wordlength)
+//get random word
+app.post("/startgame/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080");
+  console.log(req.body.number, req.body.duplicate);
+//if you dont want repeating letters this will loop untill it has found that
+  if (req.body.duplicate == false) {
+    let dupe = 0;
+    let word = '';
+    while (dupe > -1) {
+      word = fetchRandomWord(req.body.number);
+      dupe = findWordWithoutDuplicates(word);
+      console.log('dupeIndex', dupe)
+      console.log('while')
+    }
+    arr.splice(0, 1, word);
+    console.log("startGame", req.body.number,);
+
+  } //else if you want repeating letters this will run
+  else if(req.body.duplicate == true) {
+    const word = fetchRandomWord(req.body.number);
+    arr.splice(0, 1, word);
+    console.log("startGame", req.body.number);
+  }
+
+  function findWordWithoutDuplicates(word) {
+    const repeatingLetters = (word) =>
+      word.findIndex((item, index) => word.lastIndexOf(item) !== index);
+      const wordArray = [word];
+      const splitWord = word.split("");
+      console.log('splitword',splitWord);
+      
+      return repeatingLetters(splitWord);
     
-})
+  }
+  
+  startNendTime.splice(0, 1, new Date().getTime())
+  
+  res.status(200);
+  //console.log(req.params.wordlength)
+});
 
 //request works
 
-
 //send in guess
-app.post('/guess/', (req, res) => { 
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080") 
-    //res.dataBase.. highscore
-    arr.splice(1,1, req.body.data)
-    
-    
-    console.log('is Body', req.body)
-    console.log(arr)
-    res.status(200)
-    res.json( { 'res': wordle(arr[1], arr[0]) })//wordle(req.body.data)
-    
-    
-    
-});
-
-
-
-app.get('/game/play/:word', (req, res) => { 
-   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080")
-  //res.dataBase.. highscore
-  const resWord = wordle(req.params.word, arr[0])
-  const resObj = {"elements": resWord,}
-  console.log('  '+resWord[0].letter+ ' resobj')
-  res.json(resObj.elements)
+app.post("/guess/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080");
   
-  res.status(200)
-  res.send('word set')
+  guesses.splice(0,0, req.body.data)
+  arr.splice(1, 1, req.body.data);
+  console.log("is Body", req.body);
+  console.log('arr in /guess ',arr);
+  console.log('guesses: ', guesses)
+  const gameResult = wordle(arr[1], arr[0])
+  
+  
+  if(arr[1] == arr[0]){
+    console.log('right answer')
+    startNendTime.splice(1,1, new Date().getTime())
+    res.json({ res: gameResult, rightAnswer: true, times: startNendTime, guessCount: guesses.length});
+  }
+  else{
+    console.log('wrong answer')
+    res.json({ res: gameResult, rightAnswer: false });
+  }
+  res.status(200);
+   //wordle(req.body.data)
+});
+
+app.post("/sendScore/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080");
+  console.log('body',req.body)
+  console.log('res', req.body)
+  if(req.body.data.data.rightAnswer){
+    runData(req.body.data.data, req.body.name)
+ 
+  }
+  
+
+  res.status(200);
+  res.send("word set");
+});
+
+app.get("/highscore", async (req, res) => {
+  const scores = await getData();
+  res.render("highscore", { scores });
   
 });
 
-app.get('/highscore', (req, res) => {
-  res.render('highscore')
+/*
+app.get("/homepage", async (req, res) => {
+  const movies = await api.getMovies();
+  res.render("homepage", { movies });
+});
+*/
+
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
-app.get('/about', (req, res) => {
-  res.render('about')
-});
-
-console.log('listening')
+console.log("listening");
 app.listen(5080);
 
 
