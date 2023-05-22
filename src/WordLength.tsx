@@ -1,22 +1,16 @@
-import { useState } from "react";
-/*              
-                <button type="submit" value={6}>6</button>
-                <button type="submit" value={7}>7</button>
-                <button type="submit" value={8}>8</button>
-                <button type="submit" value={9}>9</button>
-                <button type="submit" value={10}>10</button>
-                */
+import { FC, useState } from "react";
 
-type NumberProp = {
-  number: number;
+
+type stringProp = {
+  giveLength: (n: string) => void
 };
-export function WordLength({ giveLength }) {
+const WordLength: FC<stringProp> =  ({ giveLength }) => {
   //number == current state setNumber== function that updates state
   // TODO ---Do this later on the word submit---
-  const [number, setNumber] = useState();
+  const [number, setNumber] = useState('5');
   const [checkbox, setCheckbox] = useState(false);
 
-  async function setGameParams(number: Number, checkbox: boolean) {
+  async function setGameParams(number: string, checkbox: boolean) {
     console.log(checkbox);
     const getLength = await fetch("/startgame/", {
       method: "POST",

@@ -8,21 +8,20 @@ type Item = {
   letter: string;
   result: string;
 };
-type Number = {
-  number: number;
+type StringLength = {
+  number: string
+  setNumber: (number: string) => void
 };
 
 function App() {
-  const [number, setNumber] = useState<Number>();
+  const [number, setNumber] = useState<StringLength>();
   const [status, setStatus] = useState()
 
   return (
     <>
       <div>
-        <WordLength
-          winStatus={(status) =>{
-            setStatus(status)
-          }}
+        <WordLength  
+          
           giveLength={(number) => {
             setNumber(number);
           }}

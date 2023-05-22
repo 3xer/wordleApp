@@ -10,7 +10,7 @@ import cors from "cors";
 
 const app = express();
 const arr = [];
-const guesses = [];
+let guesses = [];
 const startNendTime = [0,0];
 
 app.use(express.json());
@@ -33,6 +33,7 @@ app.set("views", "./handlebars");
 app.post("/startgame/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3080");
   console.log(req.body.number, req.body.duplicate);
+  guesses=[]
 //if you dont want repeating letters this will loop untill it has found that
   if (req.body.duplicate == false) {
     let dupe = 0;

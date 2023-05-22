@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 
-const SendScore: FC = (data) => {
+const SendScore: FC <any> = (data) => {
   const [text, setText] = useState("");
   console.log("sendguess result: ", data);
-    async function postScore(data, text) {
+    async function   postScore(data:any, text:any) {
       const sendScore = await fetch("/sendScore/", {
         method: "POST", 
         mode: "cors",
@@ -21,7 +21,7 @@ const SendScore: FC = (data) => {
         postScore(data, text)
         console.log(text)
       }}>
-        <input
+        <input 
           disabled = {!data.data.rightAnswer}
           type="text"
           className="nameInput"
@@ -37,8 +37,8 @@ export default SendScore;
 
 
 /*
-TODO take data and send differance between times,
+ TODO take data and send differance between times,
  guesses(add guess counter) and send settings from 
  the game to database, then render data from the 
  database to the /highscore page
- */
+*/

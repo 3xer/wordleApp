@@ -6,7 +6,8 @@ type Item = {
 };
 
 const ListGroup: FunctionComponent<{ items: Item[] }> = ({ items }) => {
- 
+
+    
   
 
   /*if(allCorrect && items.length>= 4){

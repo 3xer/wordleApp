@@ -16,7 +16,7 @@ type Item = {
   result: string;
 };
 type Text = {
-  text: String | undefined
+  text: any
 }
 type Times= [
   Number
@@ -29,11 +29,16 @@ data: {
 }
 }
 
-const ItemInput: FC<Wordlength> = ({ length }) => {
-  const [text, setText] = useState<Text>();
+const ItemInput: FC<any> = ({ length }) => {
+  const [text, setText] = useState<any>();
   const [items, setItems] =  useState<Item[]>([]);
   const [status, setStatus] = useState<Status>({
-    rightAnswer: false
+    data: {
+      res: [],
+      rightAnswer: false ,
+      times: [0],
+    }
+    
   })
 
   
@@ -65,15 +70,15 @@ const ItemInput: FC<Wordlength> = ({ length }) => {
        ev.preventDefault();
        SendGuess(text)
    }}>
-     <input
-      minLength={length}
-      maxLength={length}
-      value={text}
-       onChange={(ev) => setText(ev.target.value)}
+     <input  
+      minLength={length} 
+      maxLength={length} 
+      value={text} 
+       onChange={(ev) => setText(ev.target.value)} 
      />
      <button type="submit">submit guess</button>
    </form>
-   <SendScore data={status}/>
+   <SendScore data={status} />
    <ListGroup items={items}/>
    
     </>
