@@ -1,13 +1,12 @@
 import { FC, useState } from "react";
 
-
 type stringProp = {
-  giveLength: (n: string) => void
+  giveLength: (n: string) => void;
 };
-const WordLength: FC<stringProp> =  ({ giveLength }) => {
+const WordLength: FC<stringProp> = ({ giveLength }) => {
   //number == current state setNumber== function that updates state
   // TODO ---Do this later on the word submit---
-  const [number, setNumber] = useState('5');
+  const [number, setNumber] = useState("5");
   const [checkbox, setCheckbox] = useState(false);
 
   async function setGameParams(number: string, checkbox: boolean) {
@@ -52,5 +51,5 @@ const WordLength: FC<stringProp> =  ({ giveLength }) => {
       </form>
     </>
   );
-}
+};
 export default WordLength;
