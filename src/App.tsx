@@ -1,36 +1,35 @@
-import { JSXElementConstructor, MouseEvent, ReactElement, ReactFragment, ReactPortal, useState } from "react";
-import ListGroup  from "./ListGroup";
+import { useState } from "react";
+import ListGroup from "./ListGroup";
 import ItemInput from "./ItemInput";
 import WordLength from "./WordLength";
+import SendGuess from "./sendScore";
 
-//import { submitLength } from "./game";
 type Item = {
-  text: string;
+  letter: string;
+  result: string;
+};
+type StringLength = {
+  number: any
+ 
 };
 
 function App() {
-  
-  const [items, setItems] =  useState<Item[]>([
-   
-  ]);
+  const [number, setNumber] = useState('');
+  const [status, setStatus] = useState()
 
   return (
-    //(old comment) word and header must match the propsinterface Props => { word: string[]; header: string;}
     <>
-    
-    <div>
-    <WordLength/>
-    <ItemInput onCreateItems={(text) => {
-      setItems([
-        ...items,
-        {
-          text: text,
-        }
-      ]);
-    }}/>
-    <ListGroup items={items} />
-    </div>
-  </>
+      <div>
+        <WordLength  
+          
+          giveLength={(number) => {
+            setNumber(number);
+          }}
+        />
+        <ItemInput length={number} />
+       
+      </div>
+    </>
   );
 }
 

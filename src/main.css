@@ -29,12 +29,22 @@ body #root div #letter-input {
 }
 body #root div ul {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 body #root div ul li {
   text-align: center;
   list-style-type: none;
+  color: black;
+}
+body #root div ul .correct {
+  background-color: green;
+}
+body #root div ul .incorrect {
+  background-color: red;
+}
+body #root div ul .missplaced {
+  background-color: yellow;
 }
 
 .displayNone {

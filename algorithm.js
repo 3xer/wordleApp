@@ -40,6 +40,6 @@ export default function wordle(guess, rightAnswer) {
     }
   }
   console.log(outArray)
-  return outArray;
+  return  outArray;
 }
 //wordle('guess', 'guess')

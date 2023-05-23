@@ -22,27 +22,32 @@ function fetchRandomWord(wordLength) {
   } 
   else if (wordLength == 6) {
     const wordIndex = Math.floor(Math.random() * words6.words.length);
-    console.log('6')
+    console.log('6 letters')
+    console.log(words6.words[wordIndex])
     return words6.words[wordIndex]
   } 
   else if (wordLength == 7) {
     const wordIndex = Math.floor(Math.random() * words7.words.length);
-    console.log('7')
+    console.log('7 letters')
+    console.log(words7.words[wordIndex])
     return words7.words[wordIndex]
   } 
   else if (wordLength == 8) {
     const wordIndex = Math.floor(Math.random() * words8.words.length);
-    console.log('8')
+    console.log('8 letters')
+    console.log(words8.words[wordIndex])
     return words8.words[wordIndex]
   } 
   else if (wordLength == 9) {
     const wordIndex = Math.floor(Math.random() * words9.words.length);
-    console.log('9')
+    console.log('9 letters')
+    console.log(words9.words[wordIndex])
     return words9.words[wordIndex]
   } 
   else if (wordLength == 10) {
-    console.log('10')
     const wordIndex = Math.floor(Math.random() * words10.words.length)
+    console.log('10 letters')
+    console.log(words10.words[wordIndex])
     return words10.words[wordIndex]
   }
   else{
