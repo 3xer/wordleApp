@@ -32,7 +32,8 @@ app.set("views", "./handlebars");
 
 
 app.get("/", (req, res) => {
-res.sendFile(__dirname+`/dist/index.html`)
+  const filePath = '/dist/index.html'
+res.sendFile('./dist/index.html', {root: __dirname })
 })
 app.get("/script/", (req, res) => {
   res.sendFile(__dirname+'/dist/assets/index-d5041ed1.js')
