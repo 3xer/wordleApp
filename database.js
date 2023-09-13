@@ -10,7 +10,7 @@ const Score = mongoose.model("Score", {
 });
 
 export async function runData(data, name) {
-  await mongoose.connect("mongodb://127.0.0.1:27017/test");
+  await mongoose.connect("mongodb://127.0.0.1:27017/highscore");
   const score = new Score ({
     guesses: data.guessCount, 
     timeSec: (data.times[1] / 1000 - data.times[0]  / 1000),
@@ -24,7 +24,7 @@ export async function runData(data, name) {
   console.log(scores);
 }
 export async function getData(){
-  await mongoose.connect("mongodb://127.0.0.1:27017/test");
+  await mongoose.connect("mongodb://127.0.0.1:27017/highscore");
   return  await Score.find() 
 }
 
